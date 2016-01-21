@@ -1,1 +1,6 @@
+<h2>Best restaurants are here!</h2>
 
+
+#foreach ($cuisine in $cuisines)
+  <a href="/restaurants/$cuisine.getId()">$cuisine.getType()</a>
+#end
