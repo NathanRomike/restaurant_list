@@ -111,5 +111,14 @@ public class Restaurant {
     return Cuisine.find(cuisineId).getType();
   }
 
+  public static List<Restaurant> getRestaurantsByCuisine(int cuisineId) {
+    String sql = "SELECT id AS mId, name AS mName, cuisine_id AS cuisineId FROM restaurants WHERE cuisine_id = :id";
+    try (Connection con = DB.sql2o.open()){
+      return con.createQuery(sql)
+        .addParameter("id", cuisineId)
+        .executeAndFetch(Restaurant.class);
+    }
+  }
+
 
 }

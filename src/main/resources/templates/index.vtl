@@ -4,3 +4,10 @@
 #foreach ($cuisine in $cuisines)
   <a href="/restaurants/$cuisine.getId()">$cuisine.getType()</a>
 #end
+
+<form action="/newcuisine" method="post">
+  <input type="text" class="cuisineType" name="cuisineType">
+  <button type="submit" class="btn btn-default" name="button">Add New Cuisine</button>
+</form>
+
+<a href="/newrestaurant">Add new restaurant</a>

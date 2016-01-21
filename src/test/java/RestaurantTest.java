@@ -72,4 +72,13 @@ public class RestaurantTest {
     newRestaurant.save();
     assertEquals("German", newRestaurant.getCuisineType());
   }
+
+  @Test
+  public void restaurant_getRestaurantListByCuisineId() {
+    Cuisine newCuisine = new Cuisine("German");
+    newCuisine.save();
+    Restaurant newRestaurant = new Restaurant("Schvainsvajger", newCuisine.getId());
+    newRestaurant.save();
+    assertEquals("Schvainsvajger", Restaurant.getRestaurantsByCuisine(newCuisine.getId()).get(0).getName());
+  }
 }

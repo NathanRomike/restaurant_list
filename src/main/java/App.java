@@ -23,13 +23,49 @@ public class App {
     /******************************************************
     Students: TODO: Create page to add a new restaurant
     *******************************************************/
-    get("/new-restaurant", (request, reponse) -> {
+    get("/newrestaurant", (request, response) -> {
       HashMap<String, Object> model = new HashMap<String, Object>();
       model.put("template", "templates/newrestaurant.vtl");
+
+      model.put("cuisines", Cuisine.all());
+
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
+    get("/restaurants/:id", (request, reponse) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      model.put("template", "templates/restaurants.vtl");
 
+      model.put("restaurants", Restaurant.getRestaurantsByCuisine(Integer.parseInt(request.params("id"))));
+      
+
+
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    post("/newcuisine", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      model.put("template", "templates/index.vtl");
+
+      Cuisine newCuisine = new Cuisine(request.queryParams("cuisineType"));
+      newCuisine.save();
+
+      model.put("cuisines", Cuisine.all());
+
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    post("/new-restaurant", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      model.put("template", "templates/index.vtl");
+
+      Restaurant newRestaurant = new Restaurant(request.queryParams("newRestaurant"), (Integer.parseInt(request.queryParams("cuisineSlection"))));
+      newRestaurant.save();
+
+      model.put("cuisines", Cuisine.all());
+
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
     /******************************************************
     STUDENTS:
     TODO: Create page to display information about the selected restaurant

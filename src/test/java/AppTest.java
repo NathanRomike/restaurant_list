@@ -37,5 +37,34 @@ public class AppTest extends FluentTest {
     assertThat(pageSource()).contains("England");
   }
 
-  
+  @Test
+  public void resturantsPageDisplaysResturantForCuisine() {
+    Cuisine newCuisine = new Cuisine("Ukrainian");
+    newCuisine.save();
+    Restaurant newRestaurant = new Restaurant("Pravda", newCuisine.getId());
+    newRestaurant.save();
+    goTo("http://localhost:4567/");
+    click("a", withText("Ukrainian"));
+    assertThat(pageSource()).contains("Pravda");
+  }
+
+  @Test
+  public void createsNewCuisineSuccessfully() {
+    goTo("http://localhost:4567/");
+    fill(".cuisineType").with("Mexican");
+    submit(".btn");
+    assertThat(pageSource()).contains("Mexican");
+  }
+
+  @Test
+  public void createsNewRestuarantSeccessfully() {
+    Cuisine newCuisine = new Cuisine("Mexican");
+    newCuisine.save();
+    goTo("http://localhost:4567/newrestaurant");
+    fill("#newRestaurant").with("Dela Soul");
+    fillSelect("#cuisineSlection").withText("Mexican");
+    submit(".btn");
+    goTo("http://localhost:4567/restaurants/" + newCuisine.getId());
+    assertThat(pageSource()).contains("Dela Soul");
+  }
 }

@@ -1,0 +1,13 @@
+<form action="new-restaurant" method="post">
+  <label for="newRestaurant">Enter restaurant name</label>
+  <input type="text" name="newRestaurant" id="newRestaurant">
+
+  <label for="cuisineSlection">Chose cuisine</label>
+  <select id='cuisineSlection' name='cuisineSlection' type='text'>
+    #foreach ($cuisine in $cuisines)
+      <option value="$cuisine.getId()">$cuisine.getType()</option>
+    #end
+  </select>
+
+  <button type="submit" class="btn btn-default" name="button">Add</button>
+</form>
