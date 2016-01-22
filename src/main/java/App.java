@@ -37,7 +37,7 @@ public class App {
       model.put("template", "templates/restaurants.vtl");
 
       model.put("restaurants", Restaurant.getRestaurantsByCuisine(Integer.parseInt(request.params("id"))));
-      
+
 
 
       return new ModelAndView(model, layout);
@@ -66,6 +66,14 @@ public class App {
 
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
+
+    get("/allrestaurants", (request, reponse) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      model.put("template", "templates/allrestaurants.vtl");
+      model.put("restaurants", Restaurant.all());
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
     /******************************************************
     STUDENTS:
     TODO: Create page to display information about the selected restaurant
