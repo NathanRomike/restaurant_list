@@ -13,6 +13,15 @@ public class reviewTest {
       assertEquals(Review.all().size(), 0);
   }
 
-  
+  @Test
+  public void instantiateCorrectly() {
+    Cuisine newCuisine = new Cuisine("Polish");
+    newCuisine.save();
+    Restaurant newRestaurant = new Restaurant("Klyacki", newCuisine.getId());
+    newRestaurant.save();
+    Review review = new Review("Cool", "Nathan", newRestaurant.getId());
+    assertEquals("Cool", review.getReview());
+    assertEquals("Nathan", review.getUserName());
+  }
 
 }
